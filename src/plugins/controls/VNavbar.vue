@@ -2,7 +2,8 @@
   <nav class="navbar navbar-default" :class="navClass">
       <div class="container-fluid">
           <div class="navbar-header">
-              <a href="#" class="btn btn-info" @click="closeClick()"><i class="fa fa-bars"></i></a>
+              <button href="#" class="btn btn-info" @click="closeClick()"><i class="fa fa-bars"></i></button>
+                <a href="logo.url" class="nav-brand"/>
           </div>
       </div>
   </nav>
@@ -13,7 +14,8 @@
         name: "vNavbar",
         props: {
             navClass: "",
-            value: false
+            value: false,
+            logo: {}
         },
         methods: {
             closeClick() {

@@ -5,7 +5,6 @@ import Hello from "../components/Hello.vue";
 import TabExample from "../components/TabExample.vue";
 import FormExample from "../components/FormExample.vue";
 
-
 Vue.use(VueRouter);
 
 const router = new VueRouter(
