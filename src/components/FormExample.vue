@@ -13,6 +13,9 @@
                         <v-control-wrapper label="Employer / Rep. " label-class="col-md-3 text-right" :required="true">
                             <v-input-control v-model="name"></v-input-control>
                         </v-control-wrapper>
+                        <v-control-wrapper label="ID" label-class="col-md-3 text-right" :required="true">
+                            <v-input-control v-model="name" vtype="group" group-icon="fa-search"></v-input-control>
+                        </v-control-wrapper>
                     </v-panel>
                 </div>
             </div>

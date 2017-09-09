@@ -5,6 +5,8 @@ import VTab from "./containers/VTab.vue";
 import VTabGroup from "./containers/VTabGroup.vue";
 import VPanel from "./containers/VPanel.vue";
 import VControlWrapper from "./containers/VControlWrapper.vue";
+import VAdminPanel from "./containers/VAdminPanel.vue";
+
 
 import VDataView from "./controls/VDataView.vue";
 import VGridView from "./controls/VGridView.vue";
@@ -14,6 +16,7 @@ import VComboBox from "./controls/VComboBox.vue";
 import VDynamicCombo from "./controls/VDynamicCombo.vue"
 import VForm from "./controls/VForm.vue"
 import VInputControl from "./controls/VInputControl"
+import VNavBar from "./controls/VNavbar"
 
 
 const MyPlugins = {
@@ -24,6 +27,7 @@ const MyPlugins = {
         Vue.component(VTab.name,VTab)
         Vue.component(VTabGroup.name,VTabGroup)
         Vue.component(VPanel.name,VPanel)
+        Vue.component(VAdminPanel.name,VAdminPanel)
 
         Vue.component(VDataView.name,VDataView)
         Vue.component(VGridView.name,VGridView)
@@ -34,6 +38,7 @@ const MyPlugins = {
         Vue.component(VDynamicCombo.name, VDynamicCombo)
         Vue.component(VForm.name,VForm)
         Vue.component(VInputControl.name,VInputControl)
+        Vue.component(VNavBar.name,VNavBar)
         
     }
 }
