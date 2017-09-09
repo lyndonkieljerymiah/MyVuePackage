@@ -13,10 +13,15 @@ export default {
   data() {
     return {
       menus: {
-        contract: {
+        control: {
           icon: "fa-certificate",
-          name: "Contract",
-          visible: true
+          name: "Control",
+          visible: true,
+          submenus: [
+            {disabled: false,icon: "fa-certificate",name:"Form",url: "/form"},
+            {disabled: false,icon: "fa-certificate",name:"Tab",url: "/tab"},
+            {disabled: false,icon: "fa-certificate",name:"Grid",url: "/grid"}
+          ]
         }
       },
       logo: {

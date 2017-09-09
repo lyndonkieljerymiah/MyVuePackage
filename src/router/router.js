@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Hello from "../components/Hello.vue";
 import TabExample from "../components/TabExample.vue";
 import FormExample from "../components/FormExample.vue";
+import GridExample from "../components/GridExample.vue";
 
 Vue.use(VueRouter);
 
@@ -24,10 +25,14 @@ const router = new VueRouter(
                 name: 'form',
                 path: '/form',
                 component: FormExample
+            },
+            {
+                name: "grid",
+                path: "/grid",
+                component: GridExample
             }
         ]
-    }
-)
+    })
 
 
 export default router;

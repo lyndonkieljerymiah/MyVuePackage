@@ -10,7 +10,7 @@
 export default {
     name: "vComboBox",
     props: {
-        options: [],
+        options: Array,
         dvalue: "",
         dtext: "",
         includeDefault: false,

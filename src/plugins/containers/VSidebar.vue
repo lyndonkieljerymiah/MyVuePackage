@@ -9,7 +9,7 @@
         </div>
         <ul class="nb-sidebar-nav">
             <li class="dropdown" v-for="(menu, menuIndex) in menus" v-if="menu.visible" :key="menuIndex">
-                <a href="#" class="dropdown-toggle" ref="dropdown">
+                <a href="#" class="dropdown-toggle" ref="dropdown" @click.prevent>
                     <i class="fa fa-lg" :class="menu.icon" aria-hidden="true"></i> &nbsp;
                     <span>{{menu.name}}</span>
                     <span class="pull-right">
@@ -19,7 +19,7 @@
                 <ul class="nb-dropdown-menu" role="menu">
                     <li v-for="(submenu,submenuIndex) in menu.submenus" :class="submenu.name==='$separator' ? 'separator' : 'sub-menu'" :key="submenuIndex">
                         <span v-if="submenu.disabled" class="nav-disabled">{{submenu.name}}</span>
-                        <a v-if="submenu.name !== '$separator' && !submenu.disabled" :href="submenu.url">{{submenu.name}}</a>
+                        <router-link v-if="submenu.name !== '$separator' && !submenu.disabled" :to="submenu.url">{{submenu.name}}</router-link>
                     </li>
                 </ul>
             </li>

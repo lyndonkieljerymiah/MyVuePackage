@@ -14,26 +14,33 @@
             </thead>
             <tbody>
                 <tr v-for="(entry,entryIndex) in filteredData" :key="entryIndex" :class="{'danger' : grid.selected === entryIndex }">
-
                     <!-- auto numeric by default -->
                     <td v-if="!grid.excludeIndex">{{entryIndex + 1}}</td>
-
                     <td v-for="(key, columnIndex) in grid.columns" :class="key.class" :style="key.style" :key="columnIndex">
                         <div v-if="key.editable">
+                            
                             <!-- checkbox -->
-                            <input v-if="key.itype == 'selector'" type="checkbox" v-model="entry[key.bind]" />
+                            <input v-if="key.itype === 'selector'" type="checkbox" v-model="entry[key.bind]" />
+                            
                             <!-- plain text -->
-                            <input type="text" class="form-control" :class="key.class" v-else-if="key.itype == 'text'" v-model="entry[key.bind]">
+                            <input v-else-if="key.itype === 'text'" type="text" class="form-control" :class="key.class" v-model="entry[key.bind]">
+                            
                             <!-- text area -->
-                            <textarea class="form-control" v-else-if="key.itype == 'textarea'" v-model="entry[key.bind]"></textarea>
+                            <textarea v-else-if="key.itype === 'textarea'" class="form-control" v-model="entry[key.bind]"></textarea>
+                            
                             <!-- dropdown -->
-                            <select v-model="entry[key.bind]" v-if="key.itype == 'dropdown'" class="form-control">
+                            <select v-else-if="key.itype === 'dropdown'" v-model="entry[key.bind]" class="form-control">
                                 <option v-if="key.customDefault === undefined" value="">--SELECT--</option>
                                 <option v-for="(lookup,index) in lookups[key.selection]" :value="lookup.code" :key="index">{{lookup.name}}</option>
                             </select>
+
+                            <!--custom-->
+                            <div v-else-if="key.itype === 'custom'">
+                                <slot name="custom" :items="{column:key,entry: entry}"></slot>
+                            </div>
                         </div>
                         <div v-else>
-                            <span v-if="key.dtype === 'date'">{{entry[key.name] | toDateFormat }}</span>
+                            <span v-if="key.dtype === 'date'">{{entry[key.name] | toDateFormat(key.format) }}</span>
                             <span v-else-if="key.dtype === 'currency'">{{entry[key.name] | toCurrencyFormat }}</span>
                             <span v-else-if="key.dtype === 'period'">{{entry[key.from] | toDateFormat}} - {{entry[key.to] | toDateFormat}}</span>
                             <span v-else>{{entry[key.name]}}</span>

@@ -19,6 +19,8 @@ import VInputControl from "./controls/VInputControl"
 import VNavBar from "./controls/VNavbar"
 
 
+import {toDateFormat,toCurrencyFormat,toUpperCase} from "../filters/others";
+
 const MyPlugins = {
     install(Vue,options) {
 
@@ -39,6 +41,11 @@ const MyPlugins = {
         Vue.component(VForm.name,VForm)
         Vue.component(VInputControl.name,VInputControl)
         Vue.component(VNavBar.name,VNavBar)
+
+        Vue.filter('toDateFormat',toDateFormat);
+        Vue.filter('toCurrencyFormat', toCurrencyFormat);
+        Vue.filter('toUpperCase',toUpperCase)
+
         
     }
 }
