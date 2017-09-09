@@ -3,7 +3,7 @@
         <div class="nb-sidebar-brand">
             <div class="wrapper">
                 <a :href="logo.url" id="logo">
-                    <img :src="logo.imgPath" class="circle"> {{title}}
+                    <img :src="logo.imgPath" class="circle"> {{logo.title}}
                 </a>
             </div>
         </div>
@@ -30,7 +30,7 @@
 <script>
 export default {
     name: "vSidebar",
-    props: ['logo', 'menus', 'title'],
+    props: ['logo', 'menus'],
     mounted() {
 
         let dropdowns = this.$refs.dropdown;
