@@ -10,7 +10,6 @@
         </div>
         <input v-else type="vtype" :value="value" @input="update($event.target.value)" class="form-control"/>
     </div>
-  
 </template>
 
 <script>

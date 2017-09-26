@@ -1,8 +1,5 @@
 export class AxiosRequest {
 
-  
-
-
   post(controller, action, data) {
     return axios.post('/api/' + controller + '/' + action, data);
   }
