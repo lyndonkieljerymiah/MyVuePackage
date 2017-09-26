@@ -121,7 +121,6 @@
             }
         },
         beforeMount() {
-
             //listen to view fetch will call by the client
             EventBus.$on("onLiveViewFetch", response => {
                 this.$store.commit('liveviews/clearFilter');
@@ -133,7 +132,6 @@
 
         },
         mounted() {
-
             let lazyLoad = this.grid.lazyLoad || false;
             if(!lazyLoad) {
                 this.fetchData({grid: this.grid});

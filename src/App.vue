@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <v-admin-panel :menus="menus" :logo="logo" :user="user" @buttonClick="onClick">
+    <v-admin-panel 
+      :menus="menus" 
+      :logo="logo" 
+      :user="user" 
+      @buttonClick="onClick">
       <router-view></router-view>
     </v-admin-panel>
   </div>

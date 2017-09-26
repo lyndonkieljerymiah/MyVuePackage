@@ -21,7 +21,9 @@
             </thead>
             <tbody>
                 <tr v-for="(entry, rowIndex) in filteredData" :key="rowIndex">
-                    <slot name="body" :items="{grid: grid,items: entry}"></slot>
+                    <td v-for="(column,columnIndex) in grids.columns" :class="key.class" :style="key.style" :key="columnIndex">
+                        <slot name="body" :items="{column: column,items: entry}"></slot>
+                    </td>
                 </tr>
             </tbody>
             <tfoot v-if="grid.footers">

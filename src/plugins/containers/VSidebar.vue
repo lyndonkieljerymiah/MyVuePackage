@@ -3,10 +3,11 @@
         <div class="nb-sidebar-brand">
             <div class="wrapper">
                 <a :href="logo.url" id="logo">
-                    <img :src="logo.imgPath" class="circle"> {{logo.title}}
+                    <img :src="logo.imgPath" class="circle" /> {{logo.title}}
                 </a>
             </div>
         </div>
+        
         <ul class="nb-sidebar-nav">
             <li class="dropdown" v-for="(menu, menuIndex) in menus" v-if="menu.visible" :key="menuIndex">
                 <a href="#" class="dropdown-toggle" ref="dropdown" @click.prevent>
@@ -24,6 +25,7 @@
                 </ul>
             </li>
         </ul>
+
     </div>
 </template>
 

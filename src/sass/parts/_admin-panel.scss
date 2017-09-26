@@ -1,25 +1,25 @@
 @mixin transition() {
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-  }
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
   
-  $side-width: 250px;
-  $side-width-small: 0;
-  $background: #2A3F54;
+$side-width: 250px;
+$side-width-small: 0;
+$background: #2A3F54;
   
-  #admin-panel {
-    padding-left: $side-width;
-    @include transition();
-    &.nav-close {
-        padding-left: $side-width-small;
-        @include transition();
-        .nb-sidebar {
-            left: -$side-width;
-        }
-    }
+#admin-panel {
+  padding-left: $side-width;
+  @include transition();
+  &.nav-close {
+      padding-left: $side-width-small;
+      @include transition();
+      .nb-sidebar {
+          left: -$side-width;
+      }
   }
+}
   
   
   .nb-sidebar {
