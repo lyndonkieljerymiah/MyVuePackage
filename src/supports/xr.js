@@ -48,3 +48,21 @@ export class XR {
   }
 
 }
+
+
+class Observable {
+  
+  constructor() {
+    this.subscribers = [];
+  }
+
+  subscribe(subscriber) {
+    this.subscribers.push(subscriber);
+  }
+
+  notify() {
+    this.subscribers.forEach(subscriber => subscriber.update());
+  }
+}
+
+

@@ -17,6 +17,7 @@ import VDynamicCombo from "./controls/VDynamicCombo.vue"
 import VForm from "./controls/VForm.vue"
 import VInputControl from "./controls/VInputControl"
 import VNavBar from "./controls/VNavbar"
+import ProfileImage from "./controls/ProfileImage";
 
 
 import {toDateFormat,toCurrencyFormat,toUpperCase} from "../filters/others";
@@ -41,6 +42,7 @@ const MyPlugins = {
         Vue.component(VForm.name,VForm)
         Vue.component(VInputControl.name,VInputControl)
         Vue.component(VNavBar.name,VNavBar)
+        Vue.component(ProfileImage.name,ProfileImage)
 
         Vue.filter('toDateFormat',toDateFormat);
         Vue.filter('toCurrencyFormat', toCurrencyFormat);

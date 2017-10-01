@@ -2,22 +2,22 @@
     <div class="v-input-container">
         <div class="input-group">
             <input type="text" @focus="isShowDropdown = !isShowDropdown" v-model="values.label" readonly ref="textbox" class="form-control">
-            <span class="input-group-btn">
+            <div class="input-group-btn">
                 <button class="btn btn-default" type="button" @click="isShowDropdown = !isShowDropdown">
                     <i class="fa" :class="isShowDropdown ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
                 </button>
-            </span>
+            </div>
         </div>
         <div class="v-input-list" v-show="isShowDropdown">
-            <div class="form-group">
-                <input type="text" placeholder="Search" v-model="search" class="form-control" ref="searchText" />
-            </div>
+            <input type="text" placeholder="Search" v-model="search" class="form-control" ref="searchText" />
             <ul>
                 <li v-for="option in options">
                     <a href="#" :data-value="option[itemValue]" @click.prevent="select(option)">{{option[itemText]}}</a>
                 </li>
             </ul>
+
         </div>
+
     </div>
 </template>
 
@@ -61,15 +61,13 @@ export default {
             const option = this.items.find((item) => {
                 return item[this.itemValue] == nv;
             });
-            
+
             this.values.label = option !== undefined ? option[this.itemText] : '';
         }
     },
     computed: {
         options() {
-
             let options = [];
-            
             if (this.search.length > 0) {
                 this.items.forEach((item) => {
                     if (item[this.itemText].toLowerCase().indexOf(this.search.toLowerCase()) >= 0) {
@@ -78,6 +76,8 @@ export default {
                 });
             }
             else {
+                //take a network trip to get the data
+                
                 options = this.items;
             }
 

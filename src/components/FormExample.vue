@@ -2,7 +2,10 @@
     <div class="container">
         <v-form class="form-horizontal">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-4">
+                    <profile-image image-path="/static/images/nopic.png"></profile-image>
+                </div>
+                <div class="col-md-8">
                     <v-panel header="Tenant Form">
                         <v-control-wrapper label="Tenant Type" label-class="col-md-3 text-right" :required="true">
                             <v-combo-box v-model="type" :options="lookups"></v-combo-box>
@@ -16,6 +19,9 @@
                         <v-control-wrapper label="ID" label-class="col-md-3 text-right" :required="true">
                             <v-input-control v-model="name" vtype="group" group-icon="fa-search"></v-input-control>
                         </v-control-wrapper>
+                        <v-control-wrapper label="Country" label-class="col-md-3 text-right" :required="true">
+                            <v-dynamic-combo v-model="country" :items="countries" item-text="text" item-value="value" ></v-dynamic-combo>
+                        </v-control-wrapper >
                     </v-panel>
                 </div>
             </div>
@@ -24,16 +30,23 @@
 </template>
 
 <script>
+
+require("../assets/nopic.png");
 export default {
     data() {
         return {
             name: "",
             company: "",
+            country: "",
             regId: "",
             type: "",
             lookups: [
                 { value: "company", text: "Company" },
                 { value: "individual", text: "Individual" }
+            ],
+            countries: [
+                {value: "phil", text: "Philippines"},
+                {value: "usa", text: "USA"}
             ]
         }
     }

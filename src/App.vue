@@ -22,6 +22,7 @@ export default {
           name: "Control",
           visible: true,
           submenus: [
+            {disabled: false,icon: "fa-certificate",name:"Profile",url: "/profile"},
             {disabled: false,icon: "fa-certificate",name:"Form",url: "/form"},
             {disabled: false,icon: "fa-certificate",name:"Tab",url: "/tab"},
             {disabled: false,icon: "fa-certificate",name:"Grid",url: "/grid"}

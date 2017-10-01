@@ -5,6 +5,8 @@ import Hello from "../components/Hello.vue";
 import TabExample from "../components/TabExample.vue";
 import FormExample from "../components/FormExample.vue";
 import GridExample from "../components/GridExample.vue";
+import ProfileExample from "../components/FullProfileExample";
+
 
 Vue.use(VueRouter);
 
@@ -15,6 +17,11 @@ const router = new VueRouter(
                 name: 'home',
                 path: '/',
                 component: Hello
+            },
+            {
+                name: 'profile',
+                path: '/profile/:userId',
+                component: ProfileExample
             },
             {
                 name: 'tab',

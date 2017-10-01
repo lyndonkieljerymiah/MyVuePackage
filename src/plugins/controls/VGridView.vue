@@ -18,16 +18,12 @@
                     <td v-if="!grid.excludeIndex">{{entryIndex + 1}}</td>
                     <td v-for="(key, columnIndex) in grid.columns" :class="key.class" :style="key.style" :key="columnIndex">
                         <div v-if="key.editable">
-                            
                             <!-- checkbox -->
                             <input v-if="key.itype === 'selector'" type="checkbox" v-model="entry[key.bind]" />
-                            
                             <!-- plain text -->
                             <input v-else-if="key.itype === 'text'" type="text" class="form-control" :class="key.class" v-model="entry[key.bind]">
-                            
                             <!-- text area -->
                             <textarea v-else-if="key.itype === 'textarea'" class="form-control" v-model="entry[key.bind]"></textarea>
-                            
                             <!-- dropdown -->
                             <select v-else-if="key.itype === 'dropdown'" v-model="entry[key.bind]" class="form-control">
                                 <option v-if="key.customDefault === undefined" value="">--SELECT--</option>
@@ -115,9 +111,9 @@ export default {
     computed: {
         filteredData() {
             let sortKey = this.sortKey;
-            let data;
-            data = this.data;
-            let order = this.sortOrders[sortKey] || 1
+            let data = this.data;
+            let order = this.sortOrders[sortKey] || 1;
+            this.filterKey = this.filterKey && this.filterKey.toLowerCase();
             if (sortKey) {
                 data = data.slice().sort(function(a, b) {
                     a = a[sortKey]
