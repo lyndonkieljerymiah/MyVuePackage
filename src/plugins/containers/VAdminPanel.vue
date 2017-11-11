@@ -34,7 +34,7 @@
 <script>
 
 import VNavbar from "../controls/VNavbar.vue"
-import VSidebar from "../containers/VSidebar.vue"
+
 
 export default {
     name: "vAdminPanel",

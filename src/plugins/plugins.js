@@ -18,7 +18,7 @@ import VInputControl from "./controls/VInputControl"
 import VNavBar from "./controls/VNavbar"
 import ProfileImage from "./controls/ProfileImage";
 import VDatePicker from "./controls/VDatePicker";
-
+import VSidebar from "../containers/VSidebar.vue"
 
 import {toDateFormat,toCurrencyFormat,toUpperCase} from "../filters/others";
 
@@ -31,6 +31,8 @@ const MyPlugins = {
         Vue.component(VTabGroup.name,VTabGroup)
         Vue.component(VPanel.name,VPanel)
         Vue.component(VAdminPanel.name,VAdminPanel)
+        Vue.component(VSidebar.name,VSidebar)
+        
 
         Vue.component(VDataView.name,VDataView)
         Vue.component(VGridView.name,VGridView)
