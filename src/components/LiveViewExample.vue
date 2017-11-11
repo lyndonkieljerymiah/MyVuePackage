@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Live View Example</h1>
+        <v-page-header-bar title="Live View Example"></v-page-header-bar>
         <v-live-view :grid="gridView"></v-live-view>
     </div>
 </template>

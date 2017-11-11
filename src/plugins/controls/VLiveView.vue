@@ -319,28 +319,6 @@ export default {
 </script>
 
 <style scope>
-.table-live-views  th {
-    position:relative;
-}
-.table-live-views .filter {
-    position:absolute;
-    right:5px;
-    top:30%;
-    color: $table-th-color;
-    z-index: 3;
-}
-
-.table-live-views  .filter-wrapper {
-    position:absolute;
-    top:100%;
-    z-index: 4;
-    min-width: 250px;
-}
-
-.filter-active {
-    display: block;
-}
-
 /* Enter and leave animations can use different */
 /* durations and timing functions.              */
 .v-slide-fade-enter-active {

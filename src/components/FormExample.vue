@@ -20,7 +20,7 @@
                             <v-dynamic-combo v-model="country" :items="countries" item-text="text" item-value="value" ></v-dynamic-combo>
                         </v-control-wrapper >
                         <v-control-wrapper label="Country" label-class="col-md-3 text-right" :required="true">
-                            <v-date-picker v-model="cDate"></v-date-picker>
+                            
                         </v-control-wrapper >
                     </v-panel>
                 </div>
