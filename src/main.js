@@ -16,7 +16,12 @@ Vue.config.productionTip = false
   
 Vue.use(MyPlugins);
 
-
+window.globalApi = [
+  {
+    name: 'property',
+    api: 'api/property'
+  }
+]
 
 /* eslint-disable no-new */
 new Vue({
