@@ -39,3 +39,27 @@
     
 
 </script>
+
+
+<style scope>
+    .group-button .btn {
+        border-radius: 0;
+    }
+
+    .group-button .btn:first-child {
+        border-top-left-radius: 5px !important;
+        border-bottom-left-radius: 5px !important;
+    }
+
+    .group-button .btn:last-child {
+        border-top-right-radius: 5px !important;
+        border-bottom-right-radius: 5px !important;
+    }
+
+    .group-button input {
+        height: 30px;
+        width:40px;
+        text-align: center;
+        line-height: 14px;
+    }
+</style>

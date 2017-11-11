@@ -7,7 +7,6 @@ import VPanel from "./containers/VPanel.vue";
 import VControlWrapper from "./containers/VControlWrapper.vue";
 import VAdminPanel from "./containers/VAdminPanel.vue";
 
-
 import VDataView from "./controls/VDataView.vue";
 import VGridView from "./controls/VGridView.vue";
 import VPagination from "./controls/VPagination.vue";
@@ -18,6 +17,7 @@ import VForm from "./controls/VForm.vue"
 import VInputControl from "./controls/VInputControl"
 import VNavBar from "./controls/VNavbar"
 import ProfileImage from "./controls/ProfileImage";
+import VDatePicker from "./controls/VDatePicker";
 
 
 import {toDateFormat,toCurrencyFormat,toUpperCase} from "../filters/others";
@@ -43,6 +43,7 @@ const MyPlugins = {
         Vue.component(VInputControl.name,VInputControl)
         Vue.component(VNavBar.name,VNavBar)
         Vue.component(ProfileImage.name,ProfileImage)
+        Vue.component(VDatePicker.name,VDatePicker);
 
         Vue.filter('toDateFormat',toDateFormat);
         Vue.filter('toCurrencyFormat', toCurrencyFormat);

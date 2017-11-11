@@ -6,6 +6,7 @@ import TabExample from "../components/TabExample.vue";
 import FormExample from "../components/FormExample.vue";
 import GridExample from "../components/GridExample.vue";
 import ProfileExample from "../components/FullProfileExample";
+import LiveViewExample from "../components/LiveViewExample";
 
 
 Vue.use(VueRouter);
@@ -37,6 +38,11 @@ const router = new VueRouter(
                 name: "grid",
                 path: "/grid",
                 component: GridExample
+            },
+            {
+                name: "liveview",
+                path: "/liveview",
+                component: LiveViewExample
             }
         ]
     })

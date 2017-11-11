@@ -5,7 +5,7 @@
                 <transition name="v-slide-fade">
                     <div v-if="filter.field" class="live-views-badge">
                         <span>{{filter.label}}</span>
-                        <a href="#" class="live-views-close" @click="clearFilter">&times;</a>
+                        <a href="#" class="live-views-close" @click="refresh()">&times;</a>
                     </div>
                 </transition>
             </div>
@@ -18,7 +18,7 @@
                         Loading...
                     </div>
                 </div>
-                <div v-else="" class="col-md-12" key="fetched">
+                <div v-else class="col-md-12" key="fetched">
                     <table id="grid" class="table table-condensed table-hover table-live-views">
                         <thead>
                         <tr>
@@ -37,8 +37,10 @@
 
                                 <a class="filter"
                                    href="#"
-                                   @click.prevent.stop="filterWrap(index)"
+                                   @click.prevent.stop="selectFilter(index)"
                                    v-if="key.filter"><i class="fa fa-filter"></i></a>
+                                
+                                <!-- filter component -->
                                 <transition name="v-slide-fade">
                                     <div v-if="selectedFilter === index" class="filter-wrapper" ref="filterWrapper">
                                         <div class="panel panel-primary wrap">
@@ -47,13 +49,12 @@
                                                 <div class="form-group">
                                                     <input type="text" v-model="filter.value" class="form-control">
                                                 </div>
-                                                <button class="btn btn-info btn-block" @click.stop="doFilter(key.name,key.column)">
-                                                    Filter
-                                                </button>
+                                                <button class="btn btn-info btn-block" @click.stop="doFilter(key.name,key.column)">Filter</button>
                                             </div>
                                         </div>
                                     </div>
                                 </transition>
+                                <!-- end filter -->
                             </th>
                         </tr>
                         </thead>
@@ -67,7 +68,7 @@
                             <slot name="table-column" :props="{items: entry, index: index}">
                                 <td class="text-center">{{index + 1}}</td>
                                 <td v-for="key in grid.columns" :class="key.class" :style="key.style">
-                                    <span>{{render(entry, key)}}</span>
+                                    <span>{{doRender(entry,key)}}</span>
                                     <div v-if="key.name=='$action'" class="btn-group">
                                         <button type="button"
                                                 class="btn btn-primary dropdown-toggle btn-sm"
@@ -97,7 +98,7 @@
                         </tfoot>
                     </table>
                     <div>
-                        <v-pagination :param="$store.state.liveviews.items" @click="fetchData({paramUrl:$event,grid:grid})"></v-pagination>
+                        <v-pagination :param="items" @click="fetchData($event)"></v-pagination>
                     </div>
                 </div>
             </transition>
@@ -107,117 +108,264 @@
 
 <script>
 
-    import {EventBus} from "../../events/eventbus";
-    import VPagination from "../controls/VPagination.vue";
-    import {mapGetters, mapActions, mapMutations, mapState} from "vuex";
+import { EventBus } from "../../events/eventbus";
+import VPagination from "../controls/VPagination.vue";
 
-    export default {
-        name: "vLiveView",
-        props: ["grid"],
-        components: {VPagination},
-        data() {
-            return {
-                editVisible: false,
-            }
-        },
-        beforeMount() {
-            //listen to view fetch will call by the client
-            EventBus.$on("onLiveViewFetch", response => {
-                this.$store.commit('liveviews/clearFilter');
-                this.fetchData({grid: this.grid})
-            });
 
-            //initialize sorting
-            this.$store.commit('liveviews/initSort', {grid: this.grid});
-
-        },
-        mounted() {
-            let lazyLoad = this.grid.lazyLoad || false;
-            if(!lazyLoad) {
-                this.fetchData({grid: this.grid});
-            }
-
-        },
-        computed: {
-            ...mapGetters('liveviews', {filteredData: 'filteredData'}),
-            ...mapState('liveviews', {
-                filter: state => state.filter,
-                selectedFilter: state => state.selectedFilter,
-                sortKey: state => state.sortKey,
-                sortOrders: state => state.sortOrders,
-                fetchLoading: state => state.fetchLoading
-            }),
-            actionButtons() {
-                return this.grid.actions;
-            }
-        },
-        methods: {
-            ...mapActions('liveviews', ['fetchData']),
-            ...mapMutations('liveviews', ['loadData', 'filterWrap']),
-            sortBy: function (key) {
-
-                if (key.static) return false;
-
-                this.$store.state.liveviews.sortKey = key.name;
-                this.$store.state.liveviews.sortOrders[key.name] = this.$store.state.liveviews.sortOrders[key.name] * -1;
-            },
-            render: function (entry, key) {
-                let value = entry[key.name];
-                if (key.dtype === 'date') {
-                    value = moment(value).format('L');
-                }
-                else if (key.dtype === 'currency') {
-                    value = accounting.formatNumber(value) + " QR";
-                }
-
-                return value;
-            },
-            actionTrigger: function (action, id) {
-                this.$emit('action', action, id);
-            },
-            isArrowVisible(name) {
-                return this.$store.state.liveviews.sortKey === name;
-            },
-            doFilter(field, label) {
-                this.filter.field = field;
-                this.filter.label = label + ' - ' + this.filter.value;
-                this.fetchData({grid: this.grid});
-            },
-            clearFilter() {
-                this.$store.commit('liveviews/clearFilter');
-                this.fetchData({grid:this.grid});
-            }
-        }
+export default {
+  name: "vLiveView",
+  props: ["grid"],
+  components: { VPagination },
+  data() {
+    return {
+      items: { data: [] },
+      editVisible: false,
+      cache: {},
+      filter: {
+        field: "",
+        value: "",
+        label: ""
+      },
+      selectedFilter: "",
+      sortKey: "",
+      sortOrders: "",
+      fetchLoading: false
+    };
+  },
+  beforeMount() {
+    //listen to view fetch will call by the client
+    EventBus.$on("onLiveViewFetch", response => {
+      this.refresh();
+    });
+    //initialize sorting
+    this.initSort();
+  },
+  mounted() {
+    let lazyLoad = this.grid.lazyLoad || false;
+    if (!lazyLoad) {
+      this.fetchData();
     }
+  },
+  computed: {
+    filteredData() {
+      let sortKey = this.sortKey;
+      let data = this.items.data;
+      let order = this.sortOrders[sortKey] || 1;
+      if (sortKey) {
+        data = data.slice().sort(function(a, b) {
+          a = a[sortKey];
+          b = b[sortKey];
+          return (a === b ? 0 : a > b ? 1 : -1) * order;
+        });
+      }
+
+      return data;
+    },
+    actionButtons() {
+      return this.grid.actions;
+    }
+  },
+  methods: {
+    /*----------------------------------------
+    | Fetch Data pull data from the server
+    | checking the url and parameter from the grid parameter and construct url
+    | otherwise take the constructed url such in pagination and use the url to fetch data
+    */
+    fetchData(paramUrl) {
+      let url = "";
+      let query = "";
+      if (paramUrl === undefined) {
+        //if no url structure create one
+        const source = this.grid.source;
+        let params = "";
+
+        if (source.params) {
+          _.foreach(source.params, (value, key) => {
+            params = params + "/" + value;
+          });
+        }
+
+        if (this.filter.field.length > 0) {
+          query = "?filter_field=" + this.filter.field + "&filter_value=" + this.filter.value;
+        }
+
+        url = source.url + params + query;
+        this.selectedFilter = -1;
+        this.filter.value = "";
+      } else {
+        //use the url from pagination or refreshment
+        url = paramUrl;
+      }
+
+      //load the spining wheel of loading
+      this.loadingCursorEnabled(true);
+      axios
+        .get(url)
+        .then(response => {
+          this.loadFetchData(response.data);
+        })
+        .catch(errors => {
+          toastr.error("Loading error");
+          this.loadingCursorEnabled(false);
+        });
+    },
+    /*----------------------------------------
+    | enable the spining wheel of patience
+    | bind to loading template
+    */
+    loadingCursorEnabled(value) {
+      this.fetchLoading = value;
+    },
+    /*----------------------------------------
+    | Load the fetch data or cache data
+    | set the grid data 
+    */
+    loadFetchData(data) {
+        this.loadingCursorEnabled(false);
+      if (this.grid.source.pointer) {
+        //pointer - state where should the data be pointed at
+        //the default source is data but if you have another object that wraps the data ie villas: {data:{...}}
+        //you have to specify where the data located
+        this.items = data[this.grid.source.pointer];
+      } else {
+        this.items = data;
+      }
+      //this.cache = data.data;
+
+      
+    },
+    /*----------------------------------------
+    |   Enable filter by setting the selected filter index value
+    |   if the index is the same means same column clicked as the previous value set to -1 to hide the filter
+    |   otherwise set the filter value
+    */
+    selectFilter(index) {
+      if (this.selectedFilter === index) {
+        this.selectedFilter = -1;
+      } else {
+        this.selectedFilter = index;
+      }
+    },
+    /*----------------------------------------
+    |   Sort column
+    |   except static column
+    */
+    sortBy: function(key) {
+      if (key.static) return false;
+      this.sortKey = key.name;
+      this.sortOrders[key.name] = this.sortOrders[key.name] * -1;
+    },
+    /*----------------------------------------
+    |   render the data in format
+    |   by checking the dtype date & currency only
+    */
+    doRender: function(entry, key) {
+      let value = entry[key.name];
+      if (key.dtype === "date") {
+        value = moment(value).format("L");
+      } else if (key.dtype === "currency") {
+        //value = accounting.formatNumber(value) + " QR";
+      }
+      return value;
+    },
+    /*----------------------------------------
+    |   Emit an event when action trigger
+    |   the client can execute code 
+    */
+    actionTrigger: function(action, id) {
+      this.$emit("action", action, id);
+    },
+    /*----------------------------------------
+    |   Show arrow visibility
+    */
+    isArrowVisible(name) {
+      return this.sortKey === name;
+    },
+    /*----------------------------------------
+    |   Start a new fresh filter
+    */
+    doFilter(field, label) {
+      this.filter.field = field;
+      this.filter.label = label + " - " + this.filter.value;
+      this.fetchData();
+    },
+    /*----------------------------------------
+    |   return all data
+    */
+    refresh() {
+      this.filter.field = "";
+      this.filter.label = "";
+      this.filter.value = "";
+      this.fetchData();
+    },
+    /*----------------------------------------
+    |   initialize sorting
+    */
+    initSort() {
+      let sortOrders = {};
+      let sortKey = "";
+
+      this.grid.columns.forEach(key => {
+        sortOrders[key.name] = 1;
+        if (key.default !== undefined && key.default === true) {
+          sortKey = key.name;
+        }
+      });
+      this.sortKey = sortKey;
+      this.sortOrders = sortOrders;
+    }
+  }
+};
 </script>
 
 <style scope>
-    /* Enter and leave animations can use different */
-    /* durations and timing functions.              */
-    .v-slide-fade-enter-active {
-        transition: all .3s ease;
-    }
-    .v-slide-fade-leave-active {
-        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-    .v-slide-fade-enter, .v-slide-fade-leave-to
-        /* .slide-fade-leave-active below version 2.1.8 */ {
+.table-live-views  th {
+    position:relative;
+}
+.table-live-views .filter {
+    position:absolute;
+    right:5px;
+    top:30%;
+    color: $table-th-color;
+    z-index: 3;
+}
 
-        opacity: 0;
-    }
+.table-live-views  .filter-wrapper {
+    position:absolute;
+    top:100%;
+    z-index: 4;
+    min-width: 250px;
+}
 
-    .v-view-loading-container {
-        width: 100%;
-        height: 350px;
-        position:relative;
+.filter-active {
+    display: block;
+}
 
-    }
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.v-slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.v-slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.v-slide-fade-enter,
+.v-slide-fade-leave-to {
+  opacity: 0;
+}
 
-    .v-view-loading {
-        position:absolute;
-        top:30%;
-        left: 40%;
-        font-size: 40px;
+.v-view-loading-container {
+  width: 100%;
+  height: 350px;
+  position: relative;
+}
 
-    }
+.v-view-loading {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  font-size: 40px;
+}
+
+
 </style>

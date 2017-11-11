@@ -29,7 +29,6 @@
                                 <option v-if="key.customDefault === undefined" value="">--SELECT--</option>
                                 <option v-for="(lookup,index) in lookups[key.selection]" :value="lookup.code" :key="index">{{lookup.name}}</option>
                             </select>
-
                             <!--custom-->
                             <div v-else-if="key.itype === 'custom'">
                                 <slot name="custom" :items="{column:key,entry: entry}"></slot>

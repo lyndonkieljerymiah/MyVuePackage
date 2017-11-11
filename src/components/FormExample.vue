@@ -2,9 +2,6 @@
     <div class="container">
         <v-form class="form-horizontal">
             <div class="row">
-                <div class="col-md-4">
-                    <profile-image image-path="/static/images/nopic.png"></profile-image>
-                </div>
                 <div class="col-md-8">
                     <v-panel header="Tenant Form">
                         <v-control-wrapper label="Tenant Type" label-class="col-md-3 text-right" :required="true">
@@ -21,6 +18,9 @@
                         </v-control-wrapper>
                         <v-control-wrapper label="Country" label-class="col-md-3 text-right" :required="true">
                             <v-dynamic-combo v-model="country" :items="countries" item-text="text" item-value="value" ></v-dynamic-combo>
+                        </v-control-wrapper >
+                        <v-control-wrapper label="Country" label-class="col-md-3 text-right" :required="true">
+                            <v-date-picker v-model="cDate"></v-date-picker>
                         </v-control-wrapper >
                     </v-panel>
                 </div>
@@ -40,6 +40,7 @@ export default {
             country: "",
             regId: "",
             type: "",
+            cDate: moment(),
             lookups: [
                 { value: "company", text: "Company" },
                 { value: "individual", text: "Individual" }
