@@ -17,7 +17,7 @@
 <script>
 
 export default {
-    name: 'vSearchFull',
+    name: 'vFullSearch',
     props: ['config','value'],
     data() {
         return {
