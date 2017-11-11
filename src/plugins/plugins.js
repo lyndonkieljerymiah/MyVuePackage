@@ -20,7 +20,7 @@ import VInputControl from "./controls/VInputControl"
 import VNavBar from "./controls/VNavbar"
 import ProfileImage from "./controls/ProfileImage";
 import VDatePicker from "./controls/VDatePicker";
-
+import VFullSearch from "./controls/VFullSearch";
 
 
 import {toDateFormat,toCurrencyFormat,toUpperCase} from "../filters/others";
@@ -49,7 +49,8 @@ const MyPlugins = {
         Vue.component(VInputControl.name,VInputControl)
         Vue.component(VNavBar.name,VNavBar)
         Vue.component(ProfileImage.name,ProfileImage)
-        Vue.component(VDatePicker.name,VDatePicker);
+        Vue.component(VDatePicker.name,VDatePicker)
+        Vue.component(VFullSearch.name,VFullSearch)
 
         Vue.filter('toDateFormat',toDateFormat);
         Vue.filter('toCurrencyFormat', toCurrencyFormat);

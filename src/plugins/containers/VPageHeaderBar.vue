@@ -2,8 +2,8 @@
     <div class="page-header v-page-header-bar">
         <h3 class="title">{{title}}</h3>
         <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-default"><i class="fa fa-plus"></i> </button>
-            <button type="button" class="btn btn-default"><i class="fa fa-print"></i> </button>
+            <button type="button" class="btn btn-default" @click="onButtonClick('add')"><i class="fa fa-plus"></i> </button>
+            <button type="button" class="btn btn-default" @click="onButtonClick('print')"><i class="fa fa-print"></i> </button>
         </div>
     </div>
 </template>
@@ -11,7 +11,12 @@
 <script>
 export default {
   name: "vPageHeaderBar",
-  props: ["title"]
+  props: ["title"],
+  methods: {
+      onButtonClick(value) {
+          this.$emit('click',value);
+      }
+  }
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-page-header-bar title="Live View Example"></v-page-header-bar>
+        <v-page-header-bar title="Live View Example" @click="onClick"></v-page-header-bar>
         <v-live-view :grid="gridView"></v-live-view>
     </div>
 </template>
@@ -27,6 +27,11 @@ export default {
                     pointer: 'villas'
                 }
             }
+      }
+  },
+  methods: {
+      onClick(value) {
+          console.log(value);
       }
   }
 }
