@@ -7,7 +7,6 @@
                 </a>
             </div>
         </div>
-        
         <ul class="nb-sidebar-nav">
             <li class="dropdown" v-for="(menu, menuIndex) in menus" v-if="menu.visible" :key="menuIndex">
                 <a href="#" class="dropdown-toggle" ref="dropdown" @click.prevent>
@@ -37,14 +36,15 @@ export default {
 
         let dropdowns = this.$refs.dropdown;
         $('.nb-dropdown-menu').hide();
+        
         $(dropdowns).removeClass('active');
+        
         $(dropdowns).on('click', function(e) {
             $('.nb-dropdown-menu').hide();
             $(dropdowns).parent().removeClass('active');
             let parent = $(this).parent();
             parent.addClass('active');
             parent.find('ul').show();
-
         });
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'form-group' : excludeRow === undefined  }">
+    <div :class="{'form-group' : unGroup === undefined  }">
         <label v-if="label"
                :for="modelName"
                :class="labelClass !== undefined ? labelClass : 'col-md-3'">
@@ -16,7 +16,14 @@
 <script>
     export default {
         name: "vControlWrapper",
-        props: ["label","modelName", "labelClass","controlClass","required","customDisplay","excludeRow"],
+        props: [
+            "label",
+            "modelName", 
+            "labelClass",
+            "controlClass",
+            "required",
+            "customDisplay",
+            "unGroup"],
         mounted() {
 
         }
