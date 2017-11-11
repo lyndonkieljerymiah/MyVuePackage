@@ -8,6 +8,7 @@
                 </button>
             </span>
         </div>
+        <textarea v-else-if="vtype === 'multiline'" :value="value" @input="update($event.target.value)" class="form-control"></textarea>
         <input v-else type="vtype" :value="value" @input="update($event.target.value)" class="form-control"/>
     </div>
 </template>
