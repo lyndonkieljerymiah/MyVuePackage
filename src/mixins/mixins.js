@@ -17,6 +17,11 @@ export const toggleModal = {
         toggleDialog() {
             this.toggle = !this.toggle;
         }
+    },
+    watch: {
+        toggle(nv) {
+            if(!nv) this.close();
+        }
     }
 }
 

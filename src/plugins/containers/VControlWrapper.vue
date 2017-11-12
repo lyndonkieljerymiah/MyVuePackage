@@ -6,6 +6,7 @@
                 {{label}}
             <span v-if="required && customDisplay" class="text-danger">{{customDisplay}}</span>
             <span v-else-if="required" class="text-danger">*</span>
+            :
         </label>
         <div :class="controlClass !== undefined ? controlClass : 'col-md-9'">
             <slot></slot>
