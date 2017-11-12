@@ -1,8 +1,7 @@
 <template>
     <v-form-dialog modalId="profile" v-model="errors" @show="show" @submit="onSubmit" dialog-title="Profile" class="form-horizontal">
         <v-control-wrapper
-                label="Full Name"
-                :property-object="{alignRight:true}">
+                label="Full Name">
             <v-input-control v-model="fullName" name="fullName"></v-input-control>
             <v-error-span v-model="errors" name="fullName"></v-error-span>
         </v-control-wrapper>
