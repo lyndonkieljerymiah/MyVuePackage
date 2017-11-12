@@ -7,7 +7,10 @@
 <script>
     export default {
         name: "errorSpan",
-        props: ['value','name'],
+        props: {
+            value: Object,
+            name: String
+        },
         methods: {
             get() {
                 return this.value.get(this.name)

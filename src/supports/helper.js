@@ -18,3 +18,25 @@ export const copiedValue = (source,target, exclude = new Array()) => {
         }
     });
 }
+
+
+export const validation = () => {
+
+    let isEmpty = (value, ...args) => {
+        if(args.length > 0) {
+            for (let i = 0; i <= args.length; i++) {
+                if (_.trim(value[args[i]]).length === 0) return args[i];
+            }
+        }
+        else {
+            if(_.trim(value).length === 0) return false;
+        }
+        
+        return "";
+    }
+
+
+    return {
+        isEmpty: isEmpty
+    }
+}
