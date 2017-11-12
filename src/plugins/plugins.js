@@ -17,6 +17,7 @@ import VLiveView from "./controls/VLiveView";
 import VComboBox from "./controls/VComboBox";
 import VDynamicCombo from "./controls/VDynamicCombo"
 import VFormDialog from "./controls/VFormDialog"
+import VForm from "./controls/VForm";
 import VInputControl from "./controls/VInputControl"
 import VNavBar from "./controls/VNavbar"
 import ProfileImage from "./controls/ProfileImage";
@@ -47,6 +48,7 @@ const MyPlugins = {
         Vue.component(VComboBox.name,VComboBox)
         Vue.component(VDynamicCombo.name, VDynamicCombo)
         Vue.component(VFormDialog.name,VFormDialog)
+        Vue.component(VForm.name,VForm)
         Vue.component(VInputControl.name,VInputControl)
         Vue.component(VNavBar.name,VNavBar)
         Vue.component(ProfileImage.name,ProfileImage)
