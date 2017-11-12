@@ -11,7 +11,7 @@
         <div class="v-input-list" v-show="isShowDropdown">
             <input type="text" placeholder="Search" v-model="search" class="form-control" ref="searchText" />
             <ul>
-                <li v-for="option in options">
+                <li v-for="(option,index) in options" :key="index">
                     <a href="#" :data-value="option[itemValue]" @click.prevent="select(option)">{{option[itemText]}}</a>
                 </li>
             </ul>
