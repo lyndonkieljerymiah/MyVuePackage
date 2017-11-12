@@ -4,6 +4,9 @@ export const toggleModal = {
             toggle: false
         }
     },
+    beforeMount() {
+        this.open();
+    },
     methods: {
         openDialog() {
             this.toggle = true;
@@ -16,3 +19,4 @@ export const toggleModal = {
         }
     }
 }
+

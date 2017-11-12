@@ -9,10 +9,14 @@
                 <div class="modal-body">
                     <slot></slot>
                 </div>
+                
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" @click="dismiss(false)"  >Close</button>
-                    <button type="button" class="btn btn-primary" @click="dismiss(true)" v-if="ftype!='search'">Save changes</button>
+                    <button type="button" class="btn btn-primary" @click="dismiss(true)" v-if="ftype!='search'">
+                        Save changes
+                    </button>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -28,7 +32,7 @@
             modalType: String,
             modalId: String,
             unfold: Boolean,
-            value: Boolean
+
         },
         data() {
             return {
@@ -37,13 +41,7 @@
         },
         methods: {
             dismiss(result) {
-                if(result) {
-                    this.$emit("dismiss",result);
-                }
-                else {
-                    this.$emit("input",false);
-                }
-
+                this.$emit("dismiss",result);
             }
         },
         mounted() {
@@ -58,7 +56,7 @@
             $("#"+this.modalId).modal({backdrop:false,show:false,keyboard:false});
         },
         watch: {
-            value(val) {
+            unfold(val) {
                 if(val) {
                     $("#"+this.modalId).modal('show');
                 }
