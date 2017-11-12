@@ -1,38 +1,20 @@
 <template>
     <div class="container">
-        <v-form class="form-horizontal">
-            <div class="row">
-                <div class="col-md-8">
-                    <v-panel header="Tenant Form">
-                        <v-control-wrapper label="Tenant Type" label-class="col-md-3 text-right" :required="true">
-                            <v-combo-box v-model="type" :options="lookups"></v-combo-box>
-                        </v-control-wrapper>
-                        <v-control-wrapper label="Full Name / Company" label-class="col-md-3 text-right" :required="true">
-                            <v-input-control v-model="name"></v-input-control>
-                        </v-control-wrapper>
-                        <v-control-wrapper label="Employer / Rep. " label-class="col-md-3 text-right" :required="true">
-                            <v-input-control v-model="name"></v-input-control>
-                        </v-control-wrapper>
-                        <v-control-wrapper label="ID" label-class="col-md-3 text-right" :required="true">
-                            <v-input-control v-model="name" vtype="group" group-icon="fa-search"></v-input-control>
-                        </v-control-wrapper>
-                        <v-control-wrapper label="Country" label-class="col-md-3 text-right" :required="true">
-                            <v-dynamic-combo v-model="country" :items="countries" item-text="text" item-value="value" ></v-dynamic-combo>
-                        </v-control-wrapper >
-                        <v-control-wrapper label="Country" label-class="col-md-3 text-right" :required="true">
-                            
-                        </v-control-wrapper >
-                    </v-panel>
-                </div>
-            </div>
-        </v-form>
+        <form-dialog-example></form-dialog-example>
+        <button class="btn btn-info" @click="open">Open Dialog</button>
     </div>
 </template>
 
 <script>
 
 require("../assets/nopic.png");
+import FormDialogExample from "./FormDialogExample.vue";
+import {EventBus} from "../events/eventbus";
+
 export default {
+    components: {
+        FormDialogExample
+    },
     data() {
         return {
             name: "",
@@ -49,6 +31,11 @@ export default {
                 {value: "phil", text: "Philippines"},
                 {value: "usa", text: "USA"}
             ]
+        }
+    },
+    methods:{
+        open() {
+            EventBus.$emit("profile.show");
         }
     }
 }

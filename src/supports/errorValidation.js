@@ -1,3 +1,5 @@
+import {EventBus} from "../events/eventbus";
+
 export class ErrorValidations {
 
   constructor() {
@@ -32,7 +34,8 @@ export class ErrorValidations {
 
   clear(field) {
     if (this.errors[field]) {
-      delete this.errors[field][0];
+        this.errors[field] = '';
+        delete this.errors[field][0];
     }
   }
   all() {

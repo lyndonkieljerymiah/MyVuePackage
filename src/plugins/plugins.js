@@ -8,14 +8,15 @@ import VControlWrapper from "./containers/VControlWrapper.vue";
 import VAdminPanel from "./containers/VAdminPanel.vue";
 import VSidebar from "./containers/VSidebar";
 import VPageHeaderBar from "./containers/VPageHeaderBar";
+import VErrorSpan from "./controls/VErrorSpan";
 
-import VDataView from "./controls/VDataView.vue";
-import VGridView from "./controls/VGridView.vue";
-import VPagination from "./controls/VPagination.vue";
-import VLiveView from "./controls/VLiveView.vue";
-import VComboBox from "./controls/VComboBox.vue";
-import VDynamicCombo from "./controls/VDynamicCombo.vue"
-import VForm from "./controls/VForm.vue"
+import VDataView from "./controls/VDataView";
+import VGridView from "./controls/VGridView";
+import VPagination from "./controls/VPagination";
+import VLiveView from "./controls/VLiveView";
+import VComboBox from "./controls/VComboBox";
+import VDynamicCombo from "./controls/VDynamicCombo"
+import VFormDialog from "./controls/VFormDialog"
 import VInputControl from "./controls/VInputControl"
 import VNavBar from "./controls/VNavbar"
 import ProfileImage from "./controls/ProfileImage";
@@ -45,12 +46,13 @@ const MyPlugins = {
 
         Vue.component(VComboBox.name,VComboBox)
         Vue.component(VDynamicCombo.name, VDynamicCombo)
-        Vue.component(VForm.name,VForm)
+        Vue.component(VFormDialog.name,VFormDialog)
         Vue.component(VInputControl.name,VInputControl)
         Vue.component(VNavBar.name,VNavBar)
         Vue.component(ProfileImage.name,ProfileImage)
         Vue.component(VDatePicker.name,VDatePicker)
         Vue.component(VFullSearch.name,VFullSearch)
+        Vue.component(VErrorSpan.name,VErrorSpan)
 
         Vue.filter('toDateFormat',toDateFormat);
         Vue.filter('toCurrencyFormat', toCurrencyFormat);

@@ -1,14 +1,9 @@
 <template>
-    <div :class="{'form-group' : unGroup === undefined  }">
+    <div :class="{'form-group' : !unGroup  }">
         <label v-if="label"
-               :for="modelName"
-               :class="labelClass !== undefined ? labelClass : 'col-md-3'">
-                {{label}}
-            <span v-if="required && customDisplay" class="text-danger">{{customDisplay}}</span>
-            <span v-else-if="required" class="text-danger">*</span>
-            :
+               :class="propertyObject.labelClass" >{{label}}<span v-if="required" class="text-danger">*</span>:
         </label>
-        <div :class="controlClass !== undefined ? controlClass : 'col-md-9'">
+        <div :class="propertyObject.controlClass">
             <slot></slot>
         </div>
     </div>
@@ -17,15 +12,27 @@
 <script>
     export default {
         name: "vControlWrapper",
-        props: [
-            "label",
-            "modelName", 
-            "labelClass",
-            "controlClass",
-            "required",
-            "customDisplay",
-            "unGroup"],
-        mounted() {
+        props: {
+            label: String,
+            propertyObject: Object,
+            required: Boolean,
+            customDisplay: String,
+            unGroup: Boolean,
+            alignRight: Boolean
+        },
+        beforeMount() {
+
+            if(this.propertyObject.labelClass === undefined) {
+                this.propertyObject.labelClass = 'col-md-3';
+            }
+
+            if(this.propertyObject.alignRight) {
+                this.propertyObject.labelClass = this.propertyObject.labelClass + ' text-right';
+            }
+
+            if(this.propertyObject.controlClass === undefined) {
+                this.propertyObject.controlClass = 'col-md-9';
+            }
 
         }
 
