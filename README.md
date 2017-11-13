@@ -1,5 +1,10 @@
-# my-package
+# My Vue Package
+> custom components built in vue 2.0
 
+> Plug-in List
+- Live View - data tables with automated pulling data into server 
+- Input Control - improve input control can select textbox,textarea,textbox with button
+ 
 > custom components 
 
 ## Build Setup
