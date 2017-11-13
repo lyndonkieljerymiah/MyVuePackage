@@ -38,6 +38,10 @@ export class ErrorValidations {
         delete this.errors[field][0];
     }
   }
+
+  clearAll() {
+    this.errors = {};
+  }
   all() {
     return this.errors;
   }

@@ -66,10 +66,12 @@
             },
             show() {
                 $("#" + this.modalId).modal('show');
+                this.value.clearAll();
                 this.$emit("onShow");
             },
             close() {
                 $("#" + this.modalId).modal('hide');
+                this.value.clearAll();
                 this.$emit("onClose");
             }
         },
