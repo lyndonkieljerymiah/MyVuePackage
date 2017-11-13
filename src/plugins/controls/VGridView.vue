@@ -60,7 +60,7 @@
                     </td>
                 </tr>
                 <tr v-if="data.length == 0">
-                    <td :colspan="grid.columns.length" class="text-center">
+                    <td :colspan="grid.columns.length + 1" class="text-center">
                         <h3 class="text-warning">No Record found</h3>
                     </td>
                 </tr>

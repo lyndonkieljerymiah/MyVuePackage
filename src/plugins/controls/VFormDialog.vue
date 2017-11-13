@@ -13,8 +13,8 @@
                     </div>
                     <div class="modal-footer">
                         <div>
-                            <button type="button" class="btn btn-default" @click="close(false)">Close</button>
-                            <button type="submit" class="btn btn-primary">{{saveLabel}}</button>
+                            <button type="button" class="btn btn-default" @click="close(false)"><i class="fa fa-close"></i>Close</button>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save fa-fw" :class="{'fa-spinner fa-spin':loadingAnimation}"></i> {{saveLabel}}</button>
                         </div>
                     </div>
                 </div>
@@ -40,6 +40,7 @@
             label: String,      //optional
             value: Object,
             isEncType: Boolean,
+            loadingAnimation: Boolean
         },
         beforeMount() {
             if(this.size === 'lg') {

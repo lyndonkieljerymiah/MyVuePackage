@@ -1,5 +1,5 @@
 <template>
-    <v-form-dialog modalId="profile" v-model="errors" @show="show" @submit="onSubmit" dialog-title="Profile" class="form-horizontal">
+    <v-form-dialog modalId="profile" v-model="errors" @show="show" @submit="onSubmit" dialog-title="Profile" class="form-horizontal" :loading-animation="true">
         <v-control-wrapper
                 label="Full Name">
             <v-input-control v-model="fullName" name="fullName"></v-input-control>
